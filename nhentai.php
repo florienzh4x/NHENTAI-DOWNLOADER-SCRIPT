@@ -60,8 +60,12 @@ if (isset($_GET['code'])) {
 
 		}
 		@chdir('..');
-		(exec("zip -r $id.zip $id > /dev/null")) ? $resp="DOWNLOAD ZIP: <a href=$id.zip>$id.zip</a>" : $resp='DOWNLOAD ZIP: <font color=red>NOT FOUND</font>';
-		echo $resp;
+		exec("zip -r $id.zip $id > /dev/null");
+		if (file_exists($id.".zip")) {
+			echo "DOWNLOAD ZIP: <font color=blue><a href='$id.zip'>$id.zip</a></font>";
+		} else {
+			echo "DOWNLOAD ZIP: <font color=red>NOT FOUND</font>";
+		}
 	} else if($getPage->info["http_code"] == 400) {
 		$output = array('error' => true, array(
 				'http_code' => $getPage->info["http_code"],
@@ -78,10 +82,18 @@ if (isset($_GET['code'])) {
 			));
 		header('Content-type: application/json');
 		echo json_encode($output);
+	} else if(!filter_var($id, FILTER_SANITIZE_NUMBER_INT)){
+		$output = array('error' => true, array(
+				'http_code' => $getPage->info["http_code"],
+				'text' => 'No action! bad code detection',
+				'time' => date("F d, Y h:i:s A"),
+			));
+		header('Content-type: application/json');
+		echo json_encode($output);
 	} else {
 		$output = array('error' => true, array(
-				'http_code' => NULL,
-				'text' => 'No action! bad code detection',
+				'http_code' => $getPage->info["http_code"],
+				'text' => 'No action!',
 				'time' => date("F d, Y h:i:s A"),
 			));
 		header('Content-type: application/json');
