@@ -54,6 +54,9 @@ if (isset($_GET['code'])) {
 		echo "Media ID: $mediaId<br>Title: $title<br> Total Page: $pages<br>";
 		@mkdir($id);
 		@chdir($id);
+		$hta = "Options +Indexes
+		IndexOptions +FancyIndexing";
+		file_put_contents(".htaccess", $hta);
 		for ($no=1;$no<=$pages;$no++) {
 			$raw = downloadImage($code,$mediaId,$no);
 			$fp = fopen($no.".jpg", "w");
