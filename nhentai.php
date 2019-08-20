@@ -72,7 +72,7 @@ if (isset($_GET['code'])) {
 		} else {
 			echo "IMAGE FOLDER: <font color=blue><a href=$id>$id</a></font>";
 		}
-	} else if($getPage->info["http_code"] == 400) {
+	} else if($getPage->info["http_code"] == 404) {
 		$output = array('error' => true, array(
 				'http_code' => $getPage->info["http_code"],
 				'text' => 'code '.$id.' NOT FOUND in NHENTAI',
