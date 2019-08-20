@@ -1,5 +1,7 @@
 <?php
 
+set_time_limit(0);
+
 function curl($pageId) {
 	$ch = curl_init();
 	      curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
@@ -63,8 +65,9 @@ if (isset($_GET['code'])) {
 		exec("zip -r $id.zip $id > /dev/null");
 		if (file_exists($id.".zip")) {
 			echo "DOWNLOAD ZIP: <font color=blue><a href='$id.zip'>$id.zip</a></font>";
+			@exec("rm -rf $id");
 		} else {
-			echo "DOWNLOAD ZIP: <font color=red>NOT FOUND</font>";
+			echo "IMAGE FOLDER: <font color=blue><a href=$id>$id</a></font>";
 		}
 	} else if($getPage->info["http_code"] == 400) {
 		$output = array('error' => true, array(
