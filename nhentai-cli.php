@@ -52,7 +52,7 @@ if ($getPage->info["http_code"] == 200) {
 		@mkdir($id);
 		@chdir($id);
 		for ($no=1;$no<=$pages;$no++) {
-			$raw = downloadImage($code,$mediaId,$no);
+			$raw = downloadImage($id,$mediaId,$no);
 			$fp = fopen($no.".jpg", "w");
 				  fwrite($fp, $raw);
 				  fclose($fp);
