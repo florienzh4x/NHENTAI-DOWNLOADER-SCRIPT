@@ -58,7 +58,7 @@ if (isset($_GET['code'])) {
 		IndexOptions +FancyIndexing";
 		file_put_contents(".htaccess", $hta);
 		for ($no=1;$no<=$pages;$no++) {
-			$raw = downloadImage($code,$mediaId,$no);
+			$raw = downloadImage($id,$mediaId,$no);
 			$fp = fopen($no.".jpg", "w");
 				  fwrite($fp, $raw);
 				  fclose($fp);
